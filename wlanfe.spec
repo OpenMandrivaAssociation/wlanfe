@@ -1,6 +1,6 @@
 %define name	wlanfe
 %define version	1.0.1
-%define release 3mdk
+%define release %mkrel 3
 
 Name: 	 	%{name}
 Summary: 	Wireless lan configuration tool
