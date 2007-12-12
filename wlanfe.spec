@@ -1,0 +1,53 @@
+%define name	wlanfe
+%define version	1.0.1
+%define release 3mdk
+
+Name: 	 	%{name}
+Summary: 	Wireless lan configuration tool
+Version: 	%{version}
+Release: 	%{release}
+
+Source:		%{name}-%{version}.tar.bz2
+URL:		http://se.rious.net/wlanfe.php
+License:	GPL
+Group:		System/Configuration/Networking
+BuildRoot:	%{_tmppath}/%{name}-buildroot
+BuildRequires:	gtk-devel
+Requires:	gksu prism2-utils
+
+%description
+WlanFe is a GTK+ front end for the Linux WLAN-NG tools.
+This allows you to control a wireless networkig card.
+
+%prep
+%setup -q
+
+%build
+%make CC="gcc $RPM_OPT_FLAGS"
+										
+%install
+rm -rf $RPM_BUILD_ROOT
+mkdir -p %buildroot/%_bindir
+cp %name %buildroot/%_bindir
+
+#menu
+mkdir -p $RPM_BUILD_ROOT%{_menudir}
+cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
+?package(%{name}): command="gksu %{name}" icon="networking_configuration_section.png" needs="x11" title="WLanFE" longtitle="Wireless LAN Configuration" section="System/Configuration/Networking"
+EOF
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post
+%update_menus
+		
+%postun
+%clean_menus
+
+%files
+%defattr(-,root,root)
+%doc README TODO
+%{_bindir}/%name
+%{_menudir}/%name
+
