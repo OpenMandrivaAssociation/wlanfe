@@ -30,9 +30,15 @@ mkdir -p %buildroot/%_bindir
 cp %name %buildroot/%_bindir
 
 #menu
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}): command="gksu %{name}" icon="networking_configuration_section.png" needs="x11" title="WLanFE" longtitle="Wireless LAN Configuration" section="System/Configuration/Networking"
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
+cat << EOF > %buildroot%{_datadir}/applications/mandriva-%{name}.desktop
+[Desktop Entry]
+Type=Application
+Exec=gksu %{name}
+Icon=networking_configuration_section
+Name=WLanFE
+Comment=Wireless LAN Configuration
+Categories=Network;
 EOF
 
 %clean
@@ -48,5 +54,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc README TODO
 %{_bindir}/%name
-%{_menudir}/%name
+%{_datadir}/applications/mandriva-%name.desktop
 
