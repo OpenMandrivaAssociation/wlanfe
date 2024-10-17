@@ -8,7 +8,7 @@ Version: 	%{version}
 Release: 	%{release}
 
 Source:		%{name}-%{version}.tar.bz2
-URL:		http://se.rious.net/wlanfe.php
+URL:		https://se.rious.net/wlanfe.php
 License:	GPL
 Group:		System/Configuration/Networking
 BuildRoot:	%{_tmppath}/%{name}-buildroot
